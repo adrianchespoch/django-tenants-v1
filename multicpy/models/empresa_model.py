@@ -13,7 +13,7 @@ from django_tenants.utils import schema_rename
 
 class Scheme(TenantMixin):
     name = models.CharField(max_length=100)
-    created_at = models.DateField(auto_now_add=True)
+    created_on = models.DateField(auto_now_add=True)
     auto_create_schema = True
 
     def is_public(self):

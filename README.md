@@ -314,6 +314,107 @@ pip install drf-yasg
 
 <!-- ================================================================ -->
 <!-- //////////////////////////////////////////////////////////////// -->
+# Multitenants
+
+
+## Init
+
+- --- `settings.py`:
+  - -- Iniciamos declarando en las apps aquellas q van a ser compartidas y aquellas q no
+    - Las q seran compartidas entra todos los `Clientes` o tenats
+    - Y la propia del main domain
+      ```py
+        SHARED_APPS = []
+        TENANT_APPS = []
+        INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in SHARED_APPS]
+
+        # DATABASES = {}
+        'ENGINE': 'django_tenants.postgresql_backend',
+
+        DATABASE_ROUTERS = (
+          '',
+        )
+      ```
+
+
+
+
+
+- --- `model.py`:
+  - -- Crea un Schema, q es la clase q usa el `TenantMixin`
+  - -- Crea el Domain, a solo hace pass
+
+
+
+- --- `MIDDLEWARE`
+  - -- Incluis los middlewares para el Multitenants
+
+
+
+
+- --- `settings.py`:
+  - -- Tenant model:
+    ```py
+      TENANT_MODEL = 'multicpy.Scheme' # model q aplica el TenantMixin
+
+      TENANT_DOMAIN_MODEL = 'multicpy.Domain' # domain con pass
+
+
+      DOMAIN = env.str('DOMAIN', default='localhost') # domain principal (main)
+
+      DEFAULT_SCHEMA = env.str('DEFAULT_SCHEMA', default='public') # default schema de postgresql
+    ```
+
+
+
+
+- --- Creamos migraciones y las corremos para el ambiente de tenants
+
+```sh
+  python manage.py makemigrations
+  python manage.py migrate_schemas --shared
+```
+
+
+
+- --- Run app:
+```sh
+# like seeder and setup default schema,domain,etc (envs)
+python manage.py start_installation
+
+# 
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ================================================================ -->
+<!-- //////////////////////////////////////////////////////////////// -->
 # Products App
 - --- Creamos el App de products
   - -- Usamos el    manage.py   startapp
@@ -435,6 +536,7 @@ pip install drf-yasg
       ```py
         image = models.ImageField(default='placeholder.png')
       ```
+
 
 
 

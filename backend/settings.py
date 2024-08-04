@@ -34,60 +34,82 @@ SHARED_APPS = [
     # tenants
     'django_tenants',
 
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "rest_framework",
+    'rest_framework',
     'rest_framework.authtoken',
+    'django.contrib.staticfiles',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    # swagger
+    'drf_yasg',
+
+    # "django.contrib.admin",
+    # "django.contrib.auth",
+    # "django.contrib.contenttypes",
+    # "django.contrib.sessions",
+    # "django.contrib.messages",
+    # "django.contrib.staticfiles",
+    # "rest_framework",
+    # 'rest_framework.authtoken',
     
     # multi-tenants: no need to be in TENANT_APPS
     'multicpy',
+    
+    "users",
     
 ]
 
 TENANT_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    
+    # swagger
+    'drf_yasg',
     
     # auth
     "users",
 ]
 
+INSTALLED_APPS = list(set(SHARED_APPS)) + list(set([app for app in TENANT_APPS if app not in SHARED_APPS]))
 
-INSTALLED_APPS = [
+# INSTALLED_APPS = [
 
-    # ### Shared Apps ---------------
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
+#     # ### Shared Apps ---------------
+#     # tenants
+#     'django_tenants',
 
-    # ### ================= custom ================= ###
-    # DRF
-    'rest_framework',
+#     "django.contrib.admin",
+#     "django.contrib.auth",
+#     "django.contrib.contenttypes",
+#     "django.contrib.sessions",
+#     "django.contrib.messages",
+#     "django.contrib.staticfiles",
 
-    # authtoken: alta compatibilidad con users d django
-    'rest_framework.authtoken',
+#     # ### ================= custom ================= ###
+#     # DRF
+#     'rest_framework',
 
-    # swagger
-    'drf_yasg',
+#     # authtoken: alta compatibilidad con users d django
+#     'rest_framework.authtoken',
 
-    # tenants
-    'multicpy',
+#     # swagger
+#     'drf_yasg',
 
-    # ### Tenants apps ---------------
-    # own django apps
-    'users',
 
-]
+
+#     # ### Tenants apps ---------------
+#     # own django apps
+#     'users',
+    
+#     # tenants
+#     'multicpy',
+
+# ]
 
 MIDDLEWARE = [
     # ### multitenants ---------------
@@ -145,20 +167,13 @@ WSGI_APPLICATION = "backend.wsgi.application"
 DATABASES = {
     # ## PostgreSQL dockerized
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django_tenants.postgresql_backend',
         'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASSWORD'),
         'HOST': os.environ.get('DB_HOST'),
         'PORT': os.environ.get('DB_PORT'),
     },
-    
-    
-    # ## Default: SQLite3
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
 }
 
 # ## DB: tenants -----------
