@@ -10,6 +10,9 @@ from users.services.auth_service import AuthService
 from django.contrib.auth.models import Group, Permission
 # end imports ---
 
+from multicpy.models.empresa_model import Empresa
+from multicpy.services.empresa_service import EmpresaService
+
 
 class Container(containers.DeclarativeContainer):
     # Manager isn't accessible via Publisher instances - Error cuando se inyecta la instancia y no el modelo (sol. Object)
@@ -25,6 +28,9 @@ class Container(containers.DeclarativeContainer):
         AuthService, group_model=providers.Object(Group), permission_model=providers.Object(Permission), user_model=user_model, 
         extended_group_model=extended_group_model)
 
+    empresa_model = providers.Object(Empresa)
+    empresa_service = providers.Singleton(EmpresaService, model=empresa_model)
     # end di ---
 
 container = Container()
+

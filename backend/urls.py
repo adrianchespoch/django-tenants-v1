@@ -43,4 +43,6 @@ urlpatterns = [
     path("api/v1/extendedgroup/", include("users.urls.extended_group_urls")),
     path("api/v1/auth/", include("users.urls.auth_urls")),
 
+    path("api/v1/empresa/", include("multicpy.urls.empresa_urls")),
+
 ]

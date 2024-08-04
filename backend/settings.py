@@ -29,10 +29,40 @@ DEBUG = os.environ.get('DEBUG', 'False').lower() in ('true')
 ALLOWED_HOSTS = []
 
 
-# Application definition
+# Application definition =========================
+SHARED_APPS = [
+    # tenants
+    'django_tenants',
+
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "rest_framework",
+    'rest_framework.authtoken',
+    
+    # multi-tenants: no need to be in TENANT_APPS
+    'multicpy',
+    
+]
+
+TENANT_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    
+    # auth
+    "users",
+]
+
 
 INSTALLED_APPS = [
 
+    # ### Shared Apps ---------------
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -50,13 +80,20 @@ INSTALLED_APPS = [
     # swagger
     'drf_yasg',
 
+    # tenants
+    'multicpy',
 
+    # ### Tenants apps ---------------
     # own django apps
     'users',
 
 ]
 
 MIDDLEWARE = [
+    # ### multitenants ---------------
+    'django_tenants.middleware.main.TenantMainMiddleware',
+    'multicpy.middlewares.middleware.CustomTenantMiddleware',
+    
 
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -123,6 +160,11 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
 }
+
+# ## DB: tenants -----------
+DATABASE_ROUTERS = (
+    'django_tenants.routers.TenantSyncRouter',
+)
 
 
 # Password validation
@@ -239,3 +281,16 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
 }
+
+
+
+# ### Multitenants ---------------
+# ## Multitenants DB
+TENANT_MODEL = 'multicpy.Scheme' # model q aplica el TenantMixin
+TENANT_DOMAIN_MODEL = 'multicpy.Domain' # domain con pass
+
+
+
+# ## Consts Multitenants 
+DOMAIN = os.environ.get('DOMAIN') or 'localhost'
+DEFAULT_SCHEMA = os.environ.get('DEFAULT_SCHEMA') or 'public'
