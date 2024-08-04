@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Básico",
+    "description": "Plan básico para pequeñas instalaciones",
+    "olt_quantity": 1,
+    "has_electronic_billing": true,
+    "invoice_quantity": 25,
+    "credit_note_quantity": 5,
+    "has_consumption_graphs": true,
+    "has_monitoring": true,
+    "price": 29.99,
+    "state": true
+  },
+  {
+    "name": "Medio",
+    "description": "Plan intermedio para instalaciones medianas",
+    "olt_quantity": 2,
+    "has_electronic_billing": true,
+    "invoice_quantity": 50,
+    "credit_note_quantity": 10,
+    "has_consumption_graphs": true,
+    "has_monitoring": false,
+    "price": 59.99,
+    "state": true
+  },
+  {
+    "name": "Pro",
+    "description": "Plan profesional para instalaciones grandes",
+    "olt_quantity": 5,
+    "has_electronic_billing": true,
+    "invoice_quantity": 100,
+    "credit_note_quantity": 20,
+    "has_consumption_graphs": true,
+    "has_monitoring": true,
+    "price": 99.99,
+    "state": true
+  },
+  {
+    "name": "Profesional",
+    "description": "Plan avanzado para grandes empresas",
+    "olt_quantity": 10,
+    "has_electronic_billing": true,
+    "invoice_quantity": 200,
+    "credit_note_quantity": 50,
+    "has_consumption_graphs": true,
+    "has_monitoring": true,
+    "price": 199.99,
+    "state": true
+  },
+  {
+    "name": "Empresarial",
+    "description": "Plan completo para corporaciones",
+    "olt_quantity": 20,
+    "has_electronic_billing": true,
+    "invoice_quantity": 500,
+    "credit_note_quantity": 100,
+    "has_consumption_graphs": true,
+    "has_monitoring": true,
+    "price": 299.99,
+    "state": true
+  }
+]

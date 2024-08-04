@@ -8,10 +8,12 @@ from users.services.extended_group_service import ExtendedGroupService
 
 from users.services.auth_service import AuthService
 from django.contrib.auth.models import Group, Permission
-# end imports ---
 
+from multicpy.models.suscripcion_model import Suscripcion
+from multicpy.services.suscripcion_service import SuscripcionService
 from multicpy.models.empresa_model import Empresa
 from multicpy.services.empresa_service import EmpresaService
+# end imports ---
 
 
 class Container(containers.DeclarativeContainer):
@@ -30,6 +32,8 @@ class Container(containers.DeclarativeContainer):
 
     empresa_model = providers.Object(Empresa)
     empresa_service = providers.Singleton(EmpresaService, model=empresa_model)
+    suscripcion_model = providers.Object(Suscripcion)
+    suscripcion_service = providers.Singleton(SuscripcionService, model=suscripcion_model)
     # end di ---
 
 container = Container()

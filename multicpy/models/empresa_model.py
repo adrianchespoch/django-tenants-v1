@@ -4,6 +4,8 @@ from django.db import models
 from backend.shared.models.models import AuditDateModel
 from backend.shared.constants.choices import IDENTIFICATION_TYPE
 
+from .suscripcion_model import Suscripcion
+
 # ### tenancy ---------------
 from backend import settings
 import time
@@ -55,6 +57,9 @@ class Empresa(AuditDateModel):
     #     Provincia, on_delete=models.SET_NULL, related_name='empresa', null=True)
     # ciudad = models.ForeignKey(
     #     Ciudad, on_delete=models.SET_NULL, related_name='empresa', null=True)
+
+    suscripcion = models.ForeignKey(
+        Suscripcion, on_delete=models.SET_NULL, null=True, verbose_name='Suscripcion/Plan para cada empresa')
 
     # ### tenants ------------
     scheme = models.OneToOneField(
