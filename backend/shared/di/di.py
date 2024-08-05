@@ -15,6 +15,9 @@ from multicpy.models.empresa_model import Empresa
 from multicpy.services.empresa_service import EmpresaService
 # end imports ---
 
+from books.models.book_model import Book
+from books.services.book_service import BookService
+
 
 class Container(containers.DeclarativeContainer):
     # Manager isn't accessible via Publisher instances - Error cuando se inyecta la instancia y no el modelo (sol. Object)
@@ -34,7 +37,10 @@ class Container(containers.DeclarativeContainer):
     empresa_service = providers.Singleton(EmpresaService, model=empresa_model)
     suscripcion_model = providers.Object(Suscripcion)
     suscripcion_service = providers.Singleton(SuscripcionService, model=suscripcion_model)
+    book_model = providers.Object(Book)
+    book_service = providers.Singleton(BookService, model=book_model)
     # end di ---
 
 container = Container()
+
 

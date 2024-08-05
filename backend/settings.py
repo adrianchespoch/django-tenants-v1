@@ -73,6 +73,8 @@ TENANT_APPS = [
     
     # auth
     "users",
+    'books',
+
 ]
 
 INSTALLED_APPS = list(set(SHARED_APPS)) + list(set([app for app in TENANT_APPS if app not in SHARED_APPS]))

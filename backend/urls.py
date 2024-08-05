@@ -47,4 +47,6 @@ urlpatterns = [
 
     path("api/v1/suscripcion/", include("multicpy.urls.suscripcion_urls")),
 
+    path("api/v1/book/", include("books.urls.book_urls")),
+
 ]
