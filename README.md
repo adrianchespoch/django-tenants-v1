@@ -363,6 +363,8 @@ pip install drf-yasg
       DOMAIN = env.str('DOMAIN', default='localhost') # domain principal (main)
 
       DEFAULT_SCHEMA = env.str('DEFAULT_SCHEMA', default='public') # default schema de postgresql
+
+      # ## ALLOWED_HOSTS: [] <-- pilas con agregar cada subdominio
     ```
 
 

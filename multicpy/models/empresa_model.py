@@ -90,7 +90,6 @@ class Empresa(AuditDateModel):
              update_fields=None):
         if self.pk is None or self.scheme is None:
             self.scheme = self.create_schema()
-            self.create_base_modules()
         else:
             scheme = Scheme.objects.get(pk=self.scheme.pk)
             if scheme.schema_name != self.schema_name:

@@ -62,21 +62,22 @@ class UserService(BaseServiceAll):
 
     # @Override
     def find_all(self, filter_params=None, page_number=..., page_size=...):
-        paginated_profiles = self.profile_service.find_all(
-            filter_params, page_number, page_size
-        )
-
-        # map profile to user&profile
-        transformed_profiles = []
-        paginated_profile_data = paginated_profiles['data']
-        for item in paginated_profile_data:
-            user_data = item.pop('user_data')  # UserResponseSerializer
-            transformed_profiles.append({
-                'user': user_data,
-                'profile': item
-            })
+        from backend.shared.services.base_mixin_service import FindServiceMixin
+        queryset = FindServiceMixin.find_all(self, self.filter, filter_params)
+        paginated_data = self.paginate_queryset(
+            queryset, page_number, page_size)
+        serialized_data = self.serialize(paginated_data["page_obj"], many=True)
+        paginated_profiles = {
+            "meta": {
+                "next": paginated_data["next_page"],
+                "previous": paginated_data["previous_page"],
+                "count": paginated_data["count"],
+                "total_pages": paginated_data["total_pages"],
+            },
+            "data": serialized_data,
+        }
 
         return {
             'meta': paginated_profiles['meta'],
-            'data': transformed_profiles
+            'data': paginated_profiles['data']
         }

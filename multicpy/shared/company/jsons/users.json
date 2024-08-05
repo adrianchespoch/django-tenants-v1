@@ -1,0 +1,18 @@
+[
+  {
+    "username": "admin2",
+    "password": "Admin123.",
+    "razon_social": "Admin 2",
+    "email": "admin2@demo.com",
+    "is_staff": true,
+    "is_superuser": true
+  },
+  {
+    "username": "admin3",
+    "password": "Admin123.",
+    "razon_social": "Admin 3",
+    "email": "admin3@demo.com",
+    "is_staff": true,
+    "is_superuser": true
+  }
+]
